@@ -171,7 +171,7 @@
 
     <section class="pricing">
         <div class="container">
-            <div class="row pb-70">
+            <div id="pricing" class="row pb-70">
                 <div class="col-lg-5 col-12 header-wrap copywriting">
                     <p class="story">
                         GOOD INVESTMENT

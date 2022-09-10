@@ -15,7 +15,7 @@
                     <a class="nav-link" href="#">Mentor</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Pricing</a>
+                    <a class="nav-link" href="{{route('welcome')}}#pricing">Pricing</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Business</a>
