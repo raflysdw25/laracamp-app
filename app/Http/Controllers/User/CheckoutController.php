@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 use App\Models\Checkout;
 use App\Models\Camp;
 
+// Requests
+use App\Http\Requests\User\Checkout\Store;
+
 // Helper
 use Auth;
 
@@ -29,8 +32,13 @@ class CheckoutController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Camp $camp)
-    {        
+    public function create(Camp $camp, Request $request)
+    {                   
+        if($camp->isRegistered){
+            // Reference: https://laravel.com/docs/8.x/session#flash-data
+            $request->session()->flash('error', "You already register on {$camp->title} camp.");
+            return redirect(route('user.dashboard'));
+        }     
         return view('checkout.create', [
             "camp" => $camp
         ]);
@@ -42,10 +50,11 @@ class CheckoutController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Camp $camp)
+    public function store(Store $request, Camp $camp)
     {
+        
         // Mapping Request Data
-        $data = $request->all();
+        $data = $request->all();        
         $data['user_id'] = Auth::id();
         $data['camp_id'] = $camp->id;
 
