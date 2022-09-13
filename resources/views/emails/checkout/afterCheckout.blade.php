@@ -5,7 +5,7 @@ Hi, {{ $checkout->user->name }}
 <br>
 Thankyou for register on <b>{{ $checkout->camp->title }}</b>, please see payment instruction by click the button below
 
-@component('mail::button', ['url' => route('user.dashboard')])
+@component('mail::button', ['url' => route('dashboard')])
 My Dashboard
 @endcomponent
 

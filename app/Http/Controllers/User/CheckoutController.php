@@ -42,6 +42,7 @@ class CheckoutController extends Controller
         if($camp->isRegistered){
             // Reference: https://laravel.com/docs/8.x/session#flash-data
             $request->session()->flash('error', "You already register on {$camp->title} camp.");
+            // Walaupun bisa di redirect ke route dashboard. tapi flash message tidak akan muncul karena di route dashboard di redirect lagi
             return redirect(route('user.dashboard'));
         }     
         return view('checkout.create', [
