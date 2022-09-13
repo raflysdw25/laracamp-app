@@ -12,8 +12,13 @@ use App\Models\Camp;
 // Requests
 use App\Http\Requests\User\Checkout\Store;
 
+// Emails
+use App\Mail\Checkout\AfterCheckout;
+
 // Helper
 use Auth;
+use Mail;
+
 
 class CheckoutController extends Controller
 {
@@ -66,6 +71,9 @@ class CheckoutController extends Controller
 
         // Create Checkout
         $checkout = Checkout::create($data);
+
+        // Sending Email Checkout
+        Mail::to(Auth::user()->email)->send(new AfterCheckout($checkout));
 
         return redirect(route('checkout.success'));
     }

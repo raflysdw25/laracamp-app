@@ -10,6 +10,8 @@ use App\Models\User;
 // Helper
 use Laravel\Socialite\Facades\Socialite;
 use Auth;
+use Mail;
+use App\Mail\User\AfterRegister;
 
 class UserController extends Controller
 {
@@ -32,7 +34,13 @@ class UserController extends Controller
         ];
 
         // Jika email sudah terdaftar, maka akan update data yang ada, jika tidak ketemu maka akan membuat data baru
-        $user = User::firstOrCreate(["email" => $userData['email']], $userData);
+        // $user = User::firstOrCreate(["email" => $userData['email']], $userData);
+
+        $user = User::whereEmail($userData['email'])->first();
+        if(!$user){
+            $user = User::create($userData);
+            Mail::to($user->email)->send(new AfterRegister($user));
+        }
 
         // Login user
         Auth::login($user, true);

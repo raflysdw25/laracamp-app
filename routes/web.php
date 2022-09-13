@@ -29,7 +29,7 @@ Route::get('auth/google/callback',[UserController::class, 'handleProviderCallbac
 
 Route::middleware(['auth'])->group(function () {
     // Route User
-    Route::get('dashboard', [HomeController::class, 'dashboard'])->name('user.dashboard');
+    Route::get('dashboard', [HomeController::class, 'dashboard'])->name('user.dashboard');    
 
     
     // Route Checkout
